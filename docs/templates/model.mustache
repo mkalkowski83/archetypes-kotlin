@@ -1,0 +1,14 @@
+package {{package}}
+
+{{#imports}}import {{import}}
+{{/imports}}
+
+{{#swaggerAnnotations}}
+import io.swagger.annotations.ApiModelProperty
+{{/swaggerAnnotations}}
+
+{{#models}}
+    {{#model}}
+        {{#isEnum}}{{>enumClass}}{{/isEnum}}{{^isEnum}}{{>dataClass}}{{/isEnum}}
+    {{/model}}
+{{/models}}

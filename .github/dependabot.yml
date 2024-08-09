@@ -1,0 +1,27 @@
+version: 2
+
+registries:
+  maven-os-utils:
+    type: maven-repository
+    url: https://maven.pkg.github.com/sumup/os-utils
+    username: "dependabot"
+    password: ${{ secrets.GH_PACKAGES_TOKEN }}
+
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "gradle-update/update-gradle-wrapper-action"
+
+  # Maintain dependencies for Gradle
+  - package-ecosystem: "gradle"
+    directory: "/"
+    registries: "*"
+    schedule:
+      interval: "daily"
+
+# See https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/keeping-your-dependencies-updated-automatically
+# for more information about configuring Dependabot.

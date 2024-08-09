@@ -1,0 +1,44 @@
+<configuration>
+    <logger name="com.sumup" level="INFO"/>
+    <logger name="org.flywaydb" level="INFO"/>
+
+    <springProfile name="live">
+        <include resource="logback-stdout-appender.xml"/>
+
+        <root level="WARN">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="stage">
+        <include resource="logback-stdout-appender.xml"/>
+
+        <root level="WARN">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="dev">
+        <include resource="logback-stdout-appender.xml"/>
+
+        <root level="WARN">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="default">
+        <include resource="logback-console-appender.xml"/>
+
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="test">
+        <include resource="logback-console-appender.xml"/>
+
+        <root level="WARN">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+</configuration>

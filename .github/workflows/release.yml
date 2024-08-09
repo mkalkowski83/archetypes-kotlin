@@ -1,0 +1,74 @@
+name: release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  artifact:
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ os-app-template ]
+    runs-on: ubuntu-latest
+    env:
+      CONTAINER_REGISTRY: 861104244336.dkr.ecr.eu-west-1.amazonaws.com
+      namespace: online-store
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+      pull-requests: write # needed for comment updates
+      security-events: write
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        with:
+          fetch-depth: 0
+
+      - name: Install Java
+        uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+        with:
+          cache-read-only: false
+
+      - name: Build Java artifact
+        env:
+          GITHUB_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+        run: ./gradlew ${{ matrix.service }}:clean ${{ matrix.service }}:build
+
+      - name: Get the version
+        id: version
+        run: echo VERSION=$(echo $GITHUB_REF | cut -d / -f 3) >> $GITHUB_OUTPUT
+
+      - name: Publish Container Image
+        id: container
+        uses: sumup/composite-actions/publish-container-image@4.145.0
+        env:
+          TRIVY_OFFLINE_SCAN: true
+        with:
+          app: ${{matrix.service}}
+          dockerfile: ./${{matrix.service}}/Dockerfile
+          namespace: ${{ env.namespace }}
+          registry: 861104244336.dkr.ecr.eu-west-1.amazonaws.com
+          github_advanced_security: true
+          scan: true
+          tag: ${{ steps.version.outputs.VERSION }}
+
+      - name: Deployment configuration for Dev, Stage and Live
+        uses: sumup/composite-actions/update-deploy-infra-fleet@4.145.0
+        with:
+          namespace: ${{ env.namespace }}
+          app: ${{matrix.service}}
+          auto_merge: true
+          env: fleet-dev,fleet-stage,fleet-live
+          write_token: ${{ secrets.REVIEWER_TOKEN }}
+          image_tag: ${{ steps.container.outputs.tag }}

@@ -1,0 +1,109 @@
+name: CI
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+  pull_request_target:
+    types: [ opened, synchronize, reopened, ready_for_review ]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: CI
+    # If the PR is coming from a fork (pull_request_target), ensure it's opened by "dependabot[bot]".
+    # Otherwise, clone it normally.
+    if: github.event_name != 'pull_request_target' || github.actor == 'dependabot[bot]'
+    strategy:
+      fail-fast: false
+      matrix:
+        service: [ os-app-template ]
+    runs-on: ubuntu-latest
+    env:
+      CONTAINER_REGISTRY: 861104244336.dkr.ecr.eu-west-1.amazonaws.com
+      namespace: online-store
+    permissions:
+      actions: read
+      contents: read
+      checks: write
+      id-token: write
+      pull-requests: write # needed for comment updates
+      security-events: write
+
+    steps:
+      - name: Git Checkout
+        if: github.event_name != 'pull_request_target' || github.actor == 'dependabot[bot]'
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        with:
+          fetch-depth: 0
+
+      - name: Dependabot Checkout
+        if: github.event_name == 'pull_request_target'
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          token: ${{ secrets.REVIEWER_TOKEN }}
+
+      - name: Install Java
+        uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.REVIEWER_TOKEN }}
+
+      - name: Build Java artifact
+        env:
+          GITHUB_TOKEN: ${{ secrets.REVIEWER_TOKEN }}
+        run: ./gradlew ${{ matrix.service }}:clean ${{ matrix.service }}:build
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v4
+        if: (github.event_name != 'pull_request_target' || github.actor == 'dependabot[bot]') && (success() || failure())
+        with:
+          report_paths: ${{ matrix.service }}/build/test-results/test/TEST-*.xml
+
+      - name: Get Image Tag
+        id: get_image_tag
+        run: |
+          SHORT_SHA=$(git rev-parse --short HEAD)
+          echo IMAGE_TAG=${{ github.event.pull_request.head.ref }}-${{ github.event.pull_request.head.sha }} >> $GITHUB_OUTPUT
+
+#CI      - name: Publish Container Image
+#CI        id: container
+#CI        uses: sumup/composite-actions/publish-container-image@4.104.0
+#CI        env:
+#CI          TRIVY_OFFLINE_SCAN: true
+#CI        with:
+#CI          app: ${{matrix.service}}
+#CI          dockerfile: ./${{matrix.service}}/Dockerfile
+#CI          namespace: ${{ env.namespace }}
+#CI          registry: 861104244336.dkr.ecr.eu-west-1.amazonaws.com
+#CI          github_advanced_security: true
+#CI          scan: true
+#CI          tag: ${{ steps.get_image_tag.outputs.IMAGE_TAG }}
+
+#CI      - name: Get current date
+#CI        id: date
+#CI        run: echo CURRENT_DATE=$(date) >> $GITHUB_OUTPUT
+#CI
+#CI      - name: Post Artifact Names to Comments
+#CI        uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31
+#CI        with:
+#CI          header: image-tag
+#CI          message: |
+#CI            `${{matrix.service}}` image tag:
+#CI            ```yaml
+#CI            ${{ steps.container.outputs.tag }}
+#CI            ```
+#CI            Triggered by: @${{ github.actor }}
+#CI            Updated at: ${{ steps.date.outputs.CURRENT_DATE }}
+      - name: Dependabot auto-merge
+        uses: sumup/composite-actions/enable-dependabot-auto-merge@4.145.0
+        with:
+          token: ${{ secrets.REVIEWER_TOKEN }}

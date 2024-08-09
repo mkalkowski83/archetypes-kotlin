@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+
+  postgres:
+    container_name: os-app-template-postgres
+    networks:
+      - proxynet
+    image: postgres:14.5
+    restart: always
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "secret"
+      POSTGRES_DB: "os-app-template"
+    ports:
+      - "127.0.0.1:5432:5432"
+
+networks:
+  proxynet:
+    name: os-app-template-network

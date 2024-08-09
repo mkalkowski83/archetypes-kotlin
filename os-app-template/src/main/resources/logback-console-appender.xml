@@ -1,0 +1,9 @@
+<included>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern class="ch.qos.logback.classic.PatternLayout">
+                %black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C): %replace(%msg){'\n', ''} %blue(%mdc) %n%throwable
+            </pattern>
+        </encoder>
+    </appender>
+</included>
