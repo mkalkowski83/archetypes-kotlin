@@ -74,8 +74,3 @@ jobs:
       - name: Get current date
         id: date
         run: echo CURRENT_DATE=$(date) >> $GITHUB_OUTPUT
-
-      - name: Dependabot auto-merge
-        uses: sumup/composite-actions/enable-dependabot-auto-merge@4.145.0
-        with:
-          token: ${{ secrets.REVIEWER_TOKEN }}
