@@ -19,11 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [ os-app-template ]
+        service: [ archetypes ]
     runs-on: ubuntu-latest
-    env:
-      CONTAINER_REGISTRY: 861104244336.dkr.ecr.eu-west-1.amazonaws.com
-      namespace: online-store
     permissions:
       actions: read
       contents: read
@@ -74,35 +71,10 @@ jobs:
           SHORT_SHA=$(git rev-parse --short HEAD)
           echo IMAGE_TAG=${{ github.event.pull_request.head.ref }}-${{ github.event.pull_request.head.sha }} >> $GITHUB_OUTPUT
 
-#CI      - name: Publish Container Image
-#CI        id: container
-#CI        uses: sumup/composite-actions/publish-container-image@4.104.0
-#CI        env:
-#CI          TRIVY_OFFLINE_SCAN: true
-#CI        with:
-#CI          app: ${{matrix.service}}
-#CI          dockerfile: ./${{matrix.service}}/Dockerfile
-#CI          namespace: ${{ env.namespace }}
-#CI          registry: 861104244336.dkr.ecr.eu-west-1.amazonaws.com
-#CI          github_advanced_security: true
-#CI          scan: true
-#CI          tag: ${{ steps.get_image_tag.outputs.IMAGE_TAG }}
+      - name: Get current date
+        id: date
+        run: echo CURRENT_DATE=$(date) >> $GITHUB_OUTPUT
 
-#CI      - name: Get current date
-#CI        id: date
-#CI        run: echo CURRENT_DATE=$(date) >> $GITHUB_OUTPUT
-#CI
-#CI      - name: Post Artifact Names to Comments
-#CI        uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31
-#CI        with:
-#CI          header: image-tag
-#CI          message: |
-#CI            `${{matrix.service}}` image tag:
-#CI            ```yaml
-#CI            ${{ steps.container.outputs.tag }}
-#CI            ```
-#CI            Triggered by: @${{ github.actor }}
-#CI            Updated at: ${{ steps.date.outputs.CURRENT_DATE }}
       - name: Dependabot auto-merge
         uses: sumup/composite-actions/enable-dependabot-auto-merge@4.145.0
         with:

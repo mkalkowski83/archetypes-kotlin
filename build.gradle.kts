@@ -1,4 +1,5 @@
-import com.diffplug.gradle.spotless.SpotlessExtension
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     alias(libs.plugins.kotlin.jvm)
@@ -6,36 +7,37 @@ plugins {
     alias(libs.plugins.spotless) apply true
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.spring.dependency.management) apply false
-    alias(libs.plugins.jooq.docker) apply false
-
-    id("os-app-template.java-conventions")
-    id("api-generator")
 }
 
-kotlin {
-    compilerOptions {
-        allWarningsAsErrors = true
-        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
-        freeCompilerArgs.add("-Xjsr305=strict")
-    }
-}
-
-subprojects {
+allprojects {
     repositories {
         mavenLocal()
         mavenCentral()
         maven { url = uri("https://packages.confluent.io/maven/") }
-        maven {
-            url = uri("https://maven.pkg.github.com/sumup/os-utils")
-            credentials {
-                username = findProperty("gpr.user")?.toString() ?: System.getenv("GITHUB_ACTOR")
-                password = findProperty("gpr.key")?.toString() ?: System.getenv("GITHUB_TOKEN")
-            }
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+
+subprojects {
+    tasks.withType<Test>().configureEach {
+        useJUnitPlatform()
+    }
+
+    tasks.withType<KotlinCompile> {
+        compilerOptions {
+            allWarningsAsErrors = true
+            jvmTarget.set(JvmTarget.JVM_21)
+            freeCompilerArgs.add("-Xjsr305=strict")
         }
     }
 }
 
-configure<SpotlessExtension> {
+ext {
+    set("snakeyaml.version", "2.0") // https://avd.aquasec.com/nvd/2022/cve-2022-1471/
+    set("jackson-bom.version", libs.versions.jackson.get())
+}
+
+configure<com.diffplug.gradle.spotless.SpotlessExtension> {
     kotlin {
         target(
             fileTree(".") {
@@ -82,9 +84,4 @@ tasks {
     getByName("spotlessSql").dependsOn("spotlessKotlinGradle")
     getByName("spotlessJson").dependsOn("spotlessKotlinGradle")
     getByName("spotlessYaml").dependsOn("spotlessKotlinGradle")
-}
-
-ext {
-    set("snakeyaml.version", "2.0") // https://avd.aquasec.com/nvd/2022/cve-2022-1471/
-    set("jackson-bom.version", libs.versions.jackson.get())
 }

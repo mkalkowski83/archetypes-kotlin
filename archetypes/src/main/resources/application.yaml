@@ -1,0 +1,14 @@
+---
+server:
+  port: 8080
+  shutdown: "graceful"
+  max-http-request-header-size: "20KB"
+spring:
+  datasource:
+    url: "jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:archetypes}"
+    username: "${POSTGRES_USERNAME:postgres}"
+    password: "${POSTGRES_PASSWORD:secret}"
+    driver-class-name: "org.postgresql.Driver"
+    hikari.poolName: "archetypes"
+  flyway:
+    enabled: true

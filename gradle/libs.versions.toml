@@ -4,18 +4,13 @@ kotlin = "2.0.10"
 spring = "3.3.2"
 springDepMan = "1.1.6"
 jackson = "2.17.2"
-jooqDocker = "6.1.1"
 coroutines = "1.8.1"
-openapiGenerator = "7.7.0"
 
 logstash = "7.4"
 spotless = "6.25.0"
-opentelemetry = "2.6.0"
-
-osUtilsSerializer = "3.1.0"
 
 flyway = "10.17.0"
-postgres = "42.7.3"
+postgres = "0.8.13.RELEASE"
 hikaricp = "5.1.0"
 
 testcontainers = "1.20.1"
@@ -26,7 +21,8 @@ mockk = "1.13.12"
 spring_boot_starter_web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref="spring" }
 spring_boot_starter_actuator = { module = "org.springframework.boot:spring-boot-starter-actuator", version.ref = "spring" }
 spring_boot_starter_validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring" }
-spring_boot_starter_jooq = { module = "org.springframework.boot:spring-boot-starter-jooq", version.ref = "spring" }
+spring_boot_starter_r2dbc = { module = "org.springframework.boot:spring-boot-starter-data-r2dbc", version.ref = "spring" }
+spring_boot_starter_webflux = { module = "org.springframework.boot:spring-boot-starter-webflux", version.ref = "spring" }
 
 # Fasterxml Jackson
 jackson_databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
@@ -37,19 +33,13 @@ jackson_bom = { module = "com.fasterxml.jackson:jackson-bom", version.ref = "jac
 # Database
 flyway_core = { module = "org.flywaydb:flyway-core", version.ref = "flyway" }
 flyway_postgresql = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
-postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
+postgresql = { module = "io.r2dbc:r2dbc-postgresql", version.ref = "postgres" }
 hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikaricp" }
-
-# Utils
-utils_serializer = { module = "com.sumup.os.utils:serializer", version.ref = "osUtilsSerializer" }
 
 # Kotlin Coroutines
 kotlinx_coroutines_core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx_coroutines_reactor = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-reactor", version.ref = "coroutines" }
 kotlinx_coroutines_test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
-
-# OpenAPI
-openapi_gradle = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapiGenerator" }
 
 # Tests
 spring_boot_starter_test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring" }
@@ -59,7 +49,6 @@ testcontainers_postgresql = { module = "org.testcontainers:postgresql", version.
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 # Observability & Logging
-opentelemetry_javaagent = { module = "io.opentelemetry.javaagent:opentelemetry-javaagent", version.ref = "opentelemetry" }
 logstash_encoder = { module = "net.logstash.logback:logstash-logback-encoder", version.ref = "logstash" }
 
 [bundles]
@@ -80,5 +69,3 @@ spring_dependency_management = { id = "io.spring.dependency-management", version
 kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin_spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-jooq_docker = { id = "dev.monosoul.jooq-docker", version.ref = "jooqDocker" }
-openapi_generator = { id = "org.openapi.generator", version.ref = "openapiGenerator" }

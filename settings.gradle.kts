@@ -1,7 +1,7 @@
-rootProject.name = "os-app-template"
+rootProject.name = "archetypes"
 
 include(
-    "os-app-template",
+    "archetypes",
 )
 
 pluginManagement {

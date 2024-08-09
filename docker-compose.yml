@@ -1,19 +1,17 @@
-version: "3.9"
 services:
-
   postgres:
-    container_name: os-app-template-postgres
+    container_name: archetypes-postgres
     networks:
       - proxynet
-    image: postgres:14.5
+    image: postgres:16.1
     restart: always
     environment:
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "secret"
-      POSTGRES_DB: "os-app-template"
+      POSTGRES_DB: "archetypes"
     ports:
       - "127.0.0.1:5432:5432"
 
 networks:
   proxynet:
-    name: os-app-template-network
+    name: archetypes-network

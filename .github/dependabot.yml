@@ -1,12 +1,5 @@
 version: 2
 
-registries:
-  maven-os-utils:
-    type: maven-repository
-    url: https://maven.pkg.github.com/sumup/os-utils
-    username: "dependabot"
-    password: ${{ secrets.GH_PACKAGES_TOKEN }}
-
 updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
