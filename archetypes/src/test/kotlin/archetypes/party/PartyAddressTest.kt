@@ -19,14 +19,14 @@ internal class PartyAddressTest: UnitTest() {
         val phoneBusiness = PartyAddress(TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE), AddressProperties(listOf(AddressUsage.BUSINESS)))
 
         // when
-        val party = User("John Doe", PartyIdentifier("1234"), listOf(emailBusiness, emailHome, phoneBusiness))
+        val party = Person("John Doe", PartyIdentifier("1234"), listOf(emailBusiness, emailHome, phoneBusiness))
 
         // then
         // Give me all the business addresses
         Assertions.assertEquals(party.addresses.filter { it.addressProperties.useAs.contains(AddressUsage.BUSINESS) }.size, 2)
     }
 
-    internal class User(
+    internal class Person(
         val name: String,
         override val identifier: PartyIdentifier,
         override val addresses: List<PartyAddress>,
