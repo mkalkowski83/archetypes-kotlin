@@ -14,8 +14,7 @@ import org.junit.jupiter.api.Test
 import java.time.OffsetDateTime
 import archetypes.address.AddressProperties as IAddressProperties
 
-internal class PartyAddressTest: UnitTest() {
-
+internal class PartyAddressTest : UnitTest() {
     @Test
     fun `person has business address`() {
         // Given
@@ -24,13 +23,14 @@ internal class PartyAddressTest: UnitTest() {
         val phoneBusiness = PartyAddress(TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE), AddressProperties(listOf(AddressUsage.BUSINESS)))
 
         // when
-        val person = Person(
-            dateOfBirth = OffsetDateTime.parse("1980-03-03T00:00:00+00:00"),
-            personName = PersonName(listOf(NamePrefix.MR), listOf("John"), familyName = listOf("Doe")),
-            identifier = UniqueIdentifier("1234"),
-            addresses = listOf(emailBusiness, emailHome, phoneBusiness),
-            gender = ISOGender.FEMALE
-        )
+        val person =
+            Person(
+                dateOfBirth = OffsetDateTime.parse("1980-03-03T00:00:00+00:00"),
+                personName = PersonName(listOf(NamePrefix.MR), listOf("John"), familyName = listOf("Doe")),
+                identifier = UniqueIdentifier("1234"),
+                addresses = listOf(emailBusiness, emailHome, phoneBusiness),
+                gender = ISOGender.FEMALE,
+            )
 
         // then
         // Give me all the business addresses
@@ -41,6 +41,6 @@ internal class PartyAddressTest: UnitTest() {
     }
 
     internal class AddressProperties(
-        override val useAs: List<AddressUsage>
-    ): IAddressProperties
+        override val useAs: List<AddressUsage>,
+    ) : IAddressProperties
 }

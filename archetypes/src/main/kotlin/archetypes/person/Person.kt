@@ -12,5 +12,5 @@ class Person(
     val gender: ISOGender,
     override val identifier: PartyIdentifier,
     override val addresses: List<PartyAddress>,
-    override val description: String? = null
+    override val description: String? = null,
 ) : Party
