@@ -18,10 +18,11 @@ internal class PersonTest : UnitTest() {
         val emailBusiness =
             PartyAddress(EmailAddress("business@johndoe.com"), AddressProperties(listOf(AddressUsage.BUSINESS)))
         val emailHome = PartyAddress(EmailAddress("home@johndoe.com"), AddressProperties(listOf(AddressUsage.HOME)))
-        val phoneBusiness = PartyAddress(
-            TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE),
-            AddressProperties(listOf(AddressUsage.BUSINESS))
-        )
+        val phoneBusiness =
+            PartyAddress(
+                TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE),
+                AddressProperties(listOf(AddressUsage.BUSINESS)),
+            )
 
         // when
         val person =
