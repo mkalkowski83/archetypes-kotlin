@@ -26,7 +26,7 @@ internal class PartyAddressTest : UnitTest() {
         val person =
             Person(
                 dateOfBirth = OffsetDateTime.parse("1980-03-03T00:00:00+00:00"),
-                personName = PersonName(listOf(NamePrefix.MR), listOf("John"), familyName = listOf("Doe")),
+                personName = PersonName(listOf(NamePrefix.MR), listOf("John"), familyName = "Doe"),
                 identifier = UniqueIdentifier("1234"),
                 addresses = listOf(emailBusiness, emailHome, phoneBusiness),
                 gender = ISOGender.FEMALE,
