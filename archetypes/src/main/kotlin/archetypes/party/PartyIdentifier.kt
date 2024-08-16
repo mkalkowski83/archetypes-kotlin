@@ -1,4 +1,4 @@
-package archetypes.party.model
+package archetypes.party
 
 import java.util.UUID
 

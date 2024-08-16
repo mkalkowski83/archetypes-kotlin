@@ -11,14 +11,6 @@ dependencies {
     // Spring Boot
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.validation)
-    implementation(libs.spring.boot.starter.actuator)
-    implementation(libs.spring.boot.starter.webflux)
-    implementation(libs.spring.boot.starter.r2dbc)
-
-    // Kotlin
-    implementation(libs.bundles.jackson)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.reactor)
 
     // Database
     runtimeOnly(libs.postgresql)
