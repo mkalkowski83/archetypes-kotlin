@@ -19,7 +19,7 @@ internal class PartyAddressTest: UnitTest() {
         val phoneBusiness = PartyAddress(TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE), AddressProperties(listOf(AddressUsage.BUSINESS)))
 
         // when
-        val party = Person("John Doe", PartyIdentifier("1234"), listOf(emailBusiness, emailHome, phoneBusiness))
+        val party = Person("John Doe", UniqueIdentifier("1234"), listOf(emailBusiness, emailHome, phoneBusiness))
 
         // then
         // Give me all the business addresses
