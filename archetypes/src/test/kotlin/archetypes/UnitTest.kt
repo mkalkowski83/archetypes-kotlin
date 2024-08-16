@@ -1,3 +1,3 @@
-package com.sumup.os.archetypes
+package archetypes
 
 internal abstract class UnitTest : AbstractTest()

@@ -1,26 +1,27 @@
-package archetypes.party
+package archetypes.person
 
+import archetypes.UnitTest
 import archetypes.address.AddressUsage
 import archetypes.address.EmailAddress
 import archetypes.address.PhysicalType
 import archetypes.address.TelecomAddress
-import archetypes.person.ISOGender
-import archetypes.person.NamePrefix
-import archetypes.person.Person
-import archetypes.person.PersonName
-import com.sumup.os.archetypes.UnitTest
+import archetypes.party.PartyAddress
+import archetypes.party.UniqueIdentifier
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.time.OffsetDateTime
-import archetypes.address.AddressProperties as IAddressProperties
 
-internal class PartyAddressTest : UnitTest() {
+internal class PersonTest : UnitTest() {
     @Test
     fun `person has business address`() {
         // Given
-        val emailBusiness = PartyAddress(EmailAddress("business@johndoe.com"), AddressProperties(listOf(AddressUsage.BUSINESS)))
+        val emailBusiness =
+            PartyAddress(EmailAddress("business@johndoe.com"), AddressProperties(listOf(AddressUsage.BUSINESS)))
         val emailHome = PartyAddress(EmailAddress("home@johndoe.com"), AddressProperties(listOf(AddressUsage.HOME)))
-        val phoneBusiness = PartyAddress(TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE), AddressProperties(listOf(AddressUsage.BUSINESS)))
+        val phoneBusiness = PartyAddress(
+            TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE),
+            AddressProperties(listOf(AddressUsage.BUSINESS))
+        )
 
         // when
         val person =
@@ -42,5 +43,5 @@ internal class PartyAddressTest : UnitTest() {
 
     internal class AddressProperties(
         override val useAs: List<AddressUsage>,
-    ) : IAddressProperties
+    ) : archetypes.address.AddressProperties
 }
