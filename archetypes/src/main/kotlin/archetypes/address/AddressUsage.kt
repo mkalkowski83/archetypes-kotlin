@@ -5,4 +5,5 @@ enum class AddressUsage {
     WORK,
     BILLING,
     SHIPPING,
+    BUSINESS,
 }
