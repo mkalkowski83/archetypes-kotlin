@@ -1,6 +1,5 @@
 package archetypes.address
 
-interface AddressProperties
-{
+interface AddressProperties {
     val useAs: List<AddressUsage>
 }

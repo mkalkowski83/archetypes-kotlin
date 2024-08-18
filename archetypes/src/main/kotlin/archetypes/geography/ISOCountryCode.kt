@@ -6,5 +6,5 @@ class ISOCountryCode(
     override val description: String? = null,
     val alphabeticThreeCharacterCode: String? = null,
     val numericCode: String? = null,
-    val officialName: String? = null
-): Locale
+    val officialName: String? = null,
+) : Locale

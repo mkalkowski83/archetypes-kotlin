@@ -4,5 +4,5 @@ enum class PhysicalType {
     PHONE,
     FAX,
     MOBILE,
-    PAGER
+    PAGER,
 }

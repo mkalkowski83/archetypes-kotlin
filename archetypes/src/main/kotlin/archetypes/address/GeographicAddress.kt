@@ -10,5 +10,5 @@ class GeographicAddress(
     val zipOrPostalCode: String,
     val country: Locale,
     override val validFrom: OffsetDateTime? = null,
-    override val validTo: OffsetDateTime? = null
-): Address
+    override val validTo: OffsetDateTime? = null,
+) : Address
