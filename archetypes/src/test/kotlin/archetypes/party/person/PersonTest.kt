@@ -1,15 +1,14 @@
-package archetypes.person
+package archetypes.party.person
 
 import archetypes.UnitTest
-import archetypes.address.AddressUsage
-import archetypes.address.EmailAddress
-import archetypes.address.PhysicalType
-import archetypes.address.TelecomAddress
 import archetypes.party.PartyAddress
 import archetypes.party.UniqueIdentifier
+import archetypes.party.address.AddressUsage
+import archetypes.party.address.EmailAddress
+import archetypes.party.address.PhysicalType
+import archetypes.party.address.TelecomAddress
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import java.time.OffsetDateTime
 
 internal class PersonTest : UnitTest() {
     @Test
@@ -23,11 +22,10 @@ internal class PersonTest : UnitTest() {
                 TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE),
                 AddressProperties(listOf(AddressUsage.BUSINESS)),
             )
-
+        //add named constructor
         // when
         val person =
             Person(
-                dateOfBirth = OffsetDateTime.parse("1980-03-03T00:00:00+00:00"),
                 personName = PersonName(listOf(NamePrefix.MR), listOf("John"), familyName = "Doe"),
                 identifier = UniqueIdentifier("1234"),
                 addresses = listOf(emailBusiness, emailHome, phoneBusiness),
@@ -44,5 +42,5 @@ internal class PersonTest : UnitTest() {
 
     internal class AddressProperties(
         override val useAs: List<AddressUsage>,
-    ) : archetypes.address.AddressProperties
+    ) : archetypes.party.address.AddressProperties
 }

@@ -1,4 +1,4 @@
-package archetypes.person
+package archetypes.party.person
 
 class PersonName(
     val prefix: List<NamePrefix>? = null,

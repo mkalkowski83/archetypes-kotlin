@@ -1,6 +1,6 @@
-package archetypes.address
+package archetypes.party.address
 
-import archetypes.geography.Locale
+import archetypes.party.geography.Locale
 import java.time.OffsetDateTime
 
 class GeographicAddress(

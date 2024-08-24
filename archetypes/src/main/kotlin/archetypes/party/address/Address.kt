@@ -1,4 +1,4 @@
-package archetypes.address
+package archetypes.party.address
 
 import java.time.OffsetDateTime
 

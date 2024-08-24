@@ -1,4 +1,4 @@
-package archetypes.geography
+package archetypes.party.geography
 
 interface Locale {
     val identifier: String

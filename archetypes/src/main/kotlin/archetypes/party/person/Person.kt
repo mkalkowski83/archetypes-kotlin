@@ -1,4 +1,4 @@
-package archetypes.person
+package archetypes.party.person
 
 import archetypes.party.Party
 import archetypes.party.PartyAddress

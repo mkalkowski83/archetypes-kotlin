@@ -1,4 +1,4 @@
-package archetypes.geography
+package archetypes.party.geography
 
 class ISOCountryCode(
     override val identifier: String,

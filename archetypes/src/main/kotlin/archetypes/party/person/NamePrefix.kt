@@ -1,4 +1,4 @@
-package archetypes.person
+package archetypes.party.person
 
 enum class NamePrefix {
     MR,

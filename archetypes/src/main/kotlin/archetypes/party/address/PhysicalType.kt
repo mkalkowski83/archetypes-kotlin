@@ -1,4 +1,4 @@
-package archetypes.address
+package archetypes.party.address
 
 enum class PhysicalType {
     PHONE,

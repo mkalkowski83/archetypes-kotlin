@@ -1,7 +1,7 @@
 package archetypes.party
 
-import archetypes.address.Address
-import archetypes.address.AddressProperties
+import archetypes.party.address.Address
+import archetypes.party.address.AddressProperties
 
 class PartyAddress(
     val address: Address,
