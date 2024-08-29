@@ -1,5 +1,5 @@
 package archetypes.party.address
 
-interface AddressProperties {
+abstract class AddressProperties(
     val useAs: List<AddressUsage>
-}
+)

@@ -1,5 +1,5 @@
 package archetypes.party
 
-interface PartyIdentifier {
-    val identifier: String
+data class PartyIdentifier(val identifier: String) : UniqueIdentifier {
+    override fun getIdentifier(): String = identifier
 }

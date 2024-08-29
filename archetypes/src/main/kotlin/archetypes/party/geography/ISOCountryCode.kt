@@ -1,10 +1,14 @@
 package archetypes.party.geography
 
 class ISOCountryCode(
-    override val identifier: String,
-    override val name: String,
-    override val description: String? = null,
-    val alphabeticThreeCharacterCode: String? = null,
-    val numericCode: String? = null,
-    val officialName: String? = null,
-) : Locale
+    identifier: String,
+    name: String,
+    description: String? = null,
+    val alphabeticThreeCharacterCode: String,
+    val numericCode: String,
+    val officialName: String
+) : Locale(identifier, name, description) {
+    fun getShortName(): String = name
+    fun getAlphabeticTwoCharacterCode(): String = identifier
+}
+
