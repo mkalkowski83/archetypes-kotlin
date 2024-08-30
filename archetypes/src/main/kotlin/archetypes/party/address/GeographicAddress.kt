@@ -3,7 +3,7 @@ package archetypes.party.address
 import archetypes.party.geography.Locale
 import java.time.OffsetDateTime
 
-class GeographicAddress(
+data class GeographicAddress(
     val addressLine: List<String>,
     val city: String,
     val regionOrState: String,
@@ -14,6 +14,4 @@ class GeographicAddress(
 ) : Address() {
     override fun getAddress(): String =
         "${addressLine.joinToString(", ")}, $city, $regionOrState $zipOrPostCode, ${country.name}"
-
-    fun getCountry(): Locale = country
 }

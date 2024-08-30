@@ -8,6 +8,4 @@ data class Preference(
     fun getOptionName(): String = option?.name ?: ""
 
     fun getOptionDescription(): String = option?.description ?: ""
-
-    fun getType(): PreferenceType = type
 }

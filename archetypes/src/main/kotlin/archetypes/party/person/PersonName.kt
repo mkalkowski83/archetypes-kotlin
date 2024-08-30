@@ -3,7 +3,7 @@ package archetypes.party.person
 import java.time.OffsetDateTime
 
 data class PersonName(
-    val prefix: List<String> = listOf(),
+    val prefix: List<NamePrefix> = listOf(),
     val givenName: String? = null,
     val middleName: List<String> = listOf(),
     val familyName: String,

@@ -1,46 +1,40 @@
 package archetypes.party.person
 
 import archetypes.UnitTest
-import archetypes.party.PartyAddress
-import archetypes.party.UniqueIdentifier
 import archetypes.party.address.AddressUsage
 import archetypes.party.address.EmailAddress
-import archetypes.party.address.PhysicalType
-import archetypes.party.address.TelecomAddress
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import java.time.OffsetDateTime
 
 internal class PersonTest : UnitTest() {
     @Test
-    fun `person has business address`() {
+    fun `person has email addresses`() {
         // Given
-        val emailBusiness =
-            PartyAddress(EmailAddress("business@johndoe.com"), AddressProperties(listOf(AddressUsage.BUSINESS)))
-        val emailHome = PartyAddress(EmailAddress("home@johndoe.com"), AddressProperties(listOf(AddressUsage.HOME)))
-        val phoneBusiness =
-            PartyAddress(
-                TelecomAddress("+48", "0", "511", "123123", "", PhysicalType.MOBILE),
-                AddressProperties(listOf(AddressUsage.BUSINESS)),
-            )
-        //add named constructor
-        // when
+        val emailBusiness = EmailAddress("business@johndoe.com")
+        val emailHome = EmailAddress("home@johndoe.com")
         val person =
-            Person(
-                personName = PersonName(listOf(NamePrefix.MR), listOf("John"), familyName = "Doe"),
-                identifier = UniqueIdentifier("1234"),
-                addresses = listOf(emailBusiness, emailHome, phoneBusiness),
-                gender = ISOGender.FEMALE,
+            ConcretePerson(
+                pesel = "1234567890",
+                dateOfBirth = OffsetDateTime.parse("1990-01-01T00:00:00Z"),
+                personName = PersonName(listOf(NamePrefix.MR), "John", familyName = "Doe"),
+                isoGender = ISOGender.MALE,
+                description = "Test person",
             )
+        person.addAddress(emailBusiness, ConcreteAddressProperties(listOf(AddressUsage.BUSINESS)))
+        person.addAddress(emailHome, ConcreteAddressProperties(listOf(AddressUsage.HOME, AddressUsage.BUSINESS)))
 
-        // then
-        // Give me all the business addresses
-        val addresses = person.addresses.filter { it.addressProperties.useAs.contains(AddressUsage.BUSINESS) }
-        Assertions.assertEquals(addresses.size, 2)
-        // Give me the Email address
-        Assertions.assertEquals(addresses[0].address, emailBusiness.address)
+        // When
+        val emailAddresses = person.getEmailAddresses()
+
+        // Then
+        Assertions.assertEquals(2, emailAddresses.size)
+        Assertions.assertTrue(emailAddresses.contains(emailHome))
+        Assertions.assertTrue(emailAddresses.contains(emailBusiness))
+
+        // give me only home addresses
+        val homeAddresses = person.getAddressesByUse(AddressUsage.HOME)
+        Assertions.assertEquals(1, homeAddresses.size)
+        Assertions.assertTrue(homeAddresses.contains(emailHome))
     }
-
-    internal class AddressProperties(
-        override val useAs: List<AddressUsage>,
-    ) : archetypes.party.address.AddressProperties
 }
