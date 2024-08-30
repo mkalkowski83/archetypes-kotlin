@@ -4,7 +4,7 @@ import java.time.OffsetDateTime
 class EmailAddress(
     emailAddress: String,
     override val validFrom: OffsetDateTime? = null,
-    override val validTo: OffsetDateTime? = null
+    override val validTo: OffsetDateTime? = null,
 ) : Address() {
     private val emailAddress: String = emailAddress.lowercase()
 

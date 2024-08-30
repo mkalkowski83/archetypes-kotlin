@@ -10,7 +10,7 @@ class GeographicAddress(
     val zipOrPostCode: String,
     val country: Locale,
     override val validFrom: OffsetDateTime? = null,
-    override val validTo: OffsetDateTime? = null
+    override val validTo: OffsetDateTime? = null,
 ) : Address() {
     override fun getAddress(): String =
         "${addressLine.joinToString(", ")}, $city, $regionOrState $zipOrPostCode, ${country.name}"

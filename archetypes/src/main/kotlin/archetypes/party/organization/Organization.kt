@@ -7,5 +7,6 @@ abstract class Organization : Party() {
     abstract val otherOrganizationNames: List<OrganizationName>
 
     abstract fun getOrganizationName(): OrganizationName
+
     abstract fun getOtherOrganizationNames(): List<OrganizationName>
 }

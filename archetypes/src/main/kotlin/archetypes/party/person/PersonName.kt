@@ -11,5 +11,5 @@ data class PersonName(
     val suffix: List<String> = listOf(),
     val use: List<String> = listOf(),
     val validFrom: OffsetDateTime? = null,
-    val validTo: OffsetDateTime? = null
+    val validTo: OffsetDateTime? = null,
 )

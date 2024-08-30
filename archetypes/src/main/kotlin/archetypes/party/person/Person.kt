@@ -11,7 +11,10 @@ abstract class Person : Party() {
     abstract val isoGender: ISOGender
 
     abstract fun getPersonName(): PersonName
+
     abstract fun getOtherPersonNames(): List<PersonName>
+
     abstract fun getEthnicity(): Ethnicity?
+
     abstract fun getISOGender(): ISOGender
 }

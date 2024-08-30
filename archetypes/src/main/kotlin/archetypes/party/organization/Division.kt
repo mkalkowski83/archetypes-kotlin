@@ -1,3 +1,3 @@
 package archetypes.party.organization
 
-abstract class Division: OrganizationUnit()
+abstract class Division : OrganizationUnit()

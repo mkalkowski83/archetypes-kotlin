@@ -1,3 +1,3 @@
 package archetypes.party.organization
 
-abstract class Company: Organization()
+abstract class Company : Organization()

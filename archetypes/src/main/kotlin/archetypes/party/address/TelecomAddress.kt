@@ -10,7 +10,7 @@ class TelecomAddress(
     val extension: String,
     val physicalType: PhysicalType,
     override val validFrom: OffsetDateTime? = null,
-    override val validTo: OffsetDateTime? = null
+    override val validTo: OffsetDateTime? = null,
 ) : Address() {
     override fun getAddress(): String =
         "$countryCode $nationalDirectDialingPrefix $areaCode $number ext. $extension"
