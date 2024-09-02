@@ -9,7 +9,7 @@ coroutines = "1.8.1"
 logstash = "7.4"
 spotless = "6.25.0"
 
-flyway = "10.17.0"
+flyway = "10.17.3"
 postgres = "0.8.13.RELEASE"
 hikaricp = "5.1.0"
 
