@@ -14,14 +14,14 @@ abstract class Party {
 
     abstract fun getName(): String
 
-    abstract fun retrieveAddresses(): List<Address>
+    fun getAddresses(): List<Address> = addresses.toList()
 
     abstract fun getRoles(): List<PartyRole>
 
     abstract fun getPreferences(): List<Preference>
 
-    protected abstract val addresses: MutableList<Address>
-    protected abstract val partyAddresses: MutableList<PartyAddress>
+    private val addresses: MutableList<Address> = mutableListOf()
+    private val partyAddresses: MutableList<PartyAddress> = mutableListOf()
 
     val authentications: MutableList<PartyAuthentication> = mutableListOf()
 

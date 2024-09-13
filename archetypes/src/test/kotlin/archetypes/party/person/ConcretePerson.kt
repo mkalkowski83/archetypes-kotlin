@@ -1,10 +1,8 @@
 package archetypes.party.person
 
-import archetypes.party.PartyAddress
 import archetypes.party.PartyIdentifier
 import archetypes.party.PartyRole
 import archetypes.party.RegisteredIdentifier
-import archetypes.party.address.Address
 import archetypes.party.address.EmailAddress
 import archetypes.party.preference.Preference
 import java.time.OffsetDateTime
@@ -19,16 +17,12 @@ class ConcretePerson(
     override val ethnicity: Ethnicity? = null,
     override val description: String? = null,
 ) : Person() {
-    override val partyAddresses: MutableList<PartyAddress> = mutableListOf()
-    override val addresses: MutableList<Address> = mutableListOf()
 
     override fun getIdentifier(): PartyIdentifier = PartyIdentifier(pesel)
 
     override fun getRegisteredIdentifiers(): List<RegisteredIdentifier> = registeredIdentifier
 
     override fun getName(): String = "${personName.givenName} ${personName.familyName}"
-
-    override fun retrieveAddresses(): MutableList<Address> = addresses
 
     override fun getRoles(): List<PartyRole> {
         TODO("Not yet implemented")
@@ -39,7 +33,7 @@ class ConcretePerson(
     }
 
     fun getEmailAddresses(): List<EmailAddress> {
-        return addresses
+        return getAddresses()
             .filterIsInstance<EmailAddress>()
     }
 }
