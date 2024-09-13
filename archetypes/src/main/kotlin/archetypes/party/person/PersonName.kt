@@ -1,13 +1,15 @@
 package archetypes.party.person
 
-class PersonName(
-    val prefix: List<NamePrefix>? = null,
-    val givenName: List<String>? = null,
-    val middleName: List<String>? = null,
+import java.time.OffsetDateTime
+
+data class PersonName(
+    val prefix: List<NamePrefix> = listOf(),
+    val givenName: String? = null,
+    val middleName: List<String> = listOf(),
     val familyName: String,
-    val preferredName: List<String>? = null,
-    val suffix: List<String>? = null,
-    val use: List<String>? = null,
-    val validFrom: String? = null,
-    val validTo: String? = null,
+    val preferredName: String? = null,
+    val suffix: List<String> = listOf(),
+    val use: List<String> = listOf(),
+    val validFrom: OffsetDateTime? = null,
+    val validTo: OffsetDateTime? = null,
 )
