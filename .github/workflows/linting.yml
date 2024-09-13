@@ -59,7 +59,7 @@ jobs:
 
       - name: Setup Gradle
         if: steps.changes.outputs.source_code == 'true'
-        uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v4
         env:
           GITHUB_TOKEN: ${{ secrets.REVIEWER_TOKEN }}
 
