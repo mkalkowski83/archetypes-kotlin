@@ -17,7 +17,6 @@ class ConcretePerson(
     override val ethnicity: Ethnicity? = null,
     override val description: String? = null,
 ) : Person() {
-
     override fun getIdentifier(): PartyIdentifier = PartyIdentifier(pesel)
 
     override fun getRegisteredIdentifiers(): List<RegisteredIdentifier> = registeredIdentifier

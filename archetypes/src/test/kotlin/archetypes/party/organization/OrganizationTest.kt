@@ -14,17 +14,19 @@ internal class OrganizationTest : UnitTest() {
         // Given
         val contactEmail = EmailAddress("info@sumup.com")
         val warsawOfficeEmail = EmailAddress("warsaw@sumup.com")
-        val addressWarsaw = GeographicAddress(
-            addressLine = listOf("Prosta 20"),
-            city = "Warsaw",
-            country = Locale("pL","Poland"),
-            regionOrState = "Mazowieckie",
-            zipOrPostCode = "00-850"
-        )
-        val organization = ConcreteOrganization(
-            organizationName = OrganizationName("Sumup Inc."),
-            description = "Sumup Services GmbH Sp. z o.o. Oddział w Polsce\n",
-        )
+        val addressWarsaw =
+            GeographicAddress(
+                addressLine = listOf("Prosta 20"),
+                city = "Warsaw",
+                country = Locale("pL", "Poland"),
+                regionOrState = "Mazowieckie",
+                zipOrPostCode = "00-850",
+            )
+        val organization =
+            ConcreteOrganization(
+                organizationName = OrganizationName("Sumup Inc."),
+                description = "Sumup Services GmbH Sp. z o.o. Oddział w Polsce\n",
+            )
         organization.addAddress(contactEmail, OrganizationAddressProperties(listOf(AddressUsage.BUSINESS)))
         organization.addAddress(addressWarsaw, OrganizationAddressProperties(listOf(AddressUsage.BUSINESS)))
         organization.addAddress(warsawOfficeEmail, OrganizationAddressProperties(listOf(AddressUsage.BUSINESS)))

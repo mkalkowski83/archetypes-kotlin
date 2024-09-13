@@ -9,7 +9,7 @@ class ConcreteOrganization(
     override val organizationName: OrganizationName,
     override val description: String?,
     override val otherOrganizationNames: List<OrganizationName>? = null,
-): Company() {
+) : Company() {
     override fun getIdentifier(): PartyIdentifier {
         TODO("Not yet implemented")
     }
