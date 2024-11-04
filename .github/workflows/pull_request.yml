@@ -60,7 +60,7 @@ jobs:
         run: ./gradlew ${{ matrix.service }}:clean ${{ matrix.service }}:build
 
       - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v4
+        uses: mikepenz/action-junit-report@v5
         if: (github.event_name != 'pull_request_target' || github.actor == 'dependabot[bot]') && (success() || failure())
         with:
           report_paths: ${{ matrix.service }}/build/test-results/test/TEST-*.xml
